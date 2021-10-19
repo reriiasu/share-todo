@@ -1,0 +1,24 @@
+type Todo
+  @model
+  @key(
+    name: "SortByTargetAt"
+    fields: ["status", "targetAt"]
+    queryField: "listSortedByTargetAt"
+  )
+  @auth(
+    rules: [
+      { allow: owner, provider: userPools, operations: [create, delete] }
+      { allow: private, provider: userPools, operations: [read] }
+    ]
+  ) {
+  id: ID!
+  status: Int!
+  title: String!
+  comment: AWSJSON!
+  url: String!
+  targetAt: AWSDateTime!
+  carryOver: Boolean!
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  updatedUser: String!
+}

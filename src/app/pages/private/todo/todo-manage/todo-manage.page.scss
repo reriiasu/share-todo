@@ -1,0 +1,48 @@
+ion-button {
+  &.close {
+    height: 38px;
+  }
+}
+
+ion-list {
+  overflow-y: auto;
+  // アクションボタン位置を領域下に固定する
+  height: calc(100% - 56px);
+
+  &.show-keyboard {
+    // キーボード表示中は、アクションボタンの固定を解除
+    height: auto;
+  }
+}
+
+// アクションボタン
+.action-button {
+  width: 100%;
+  position: relative;
+  --inner-border-width: 0;
+  ion-button {
+    width: 120px;
+  }
+}
+
+// 箇条書き
+.bulletPoint {
+  min-height: 30px;
+  --highlight-height: 30px;
+  ion-input {
+    margin-left: 5px;
+    min-height: 30px;
+    height: 30px;
+  }
+}
+
+ion-segment-button {
+  min-height: 30px;
+  height: 30px;
+}
+
+ion-label {
+  &.title-end {
+    margin-right: 16px;
+  }
+}

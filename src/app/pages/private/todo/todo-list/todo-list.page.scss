@@ -1,0 +1,27 @@
+// アコーディンスタイル
+mat-accordion {
+  width: 100%;
+
+  .mat-expansion-panel-body {
+    // padding: 0 0 10px;
+    padding-top: 0;
+  }
+
+  .mat-expansion-panel-header {
+    padding: 0 10px 0 10px;
+  }
+}
+
+ion-item {
+  // 右余白16pxを削除
+  --inner-padding-end: 0;
+}
+
+ion-button {
+  // 全大文字化の解除
+  text-transform: none;
+}
+
+ion-label.first {
+  margin-top: 0;
+}

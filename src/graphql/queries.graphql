@@ -1,0 +1,70 @@
+# this is an auto generated file. This will be overwritten
+query GetTodo($id: ID!) {
+  getTodo(id: $id) {
+    id
+    status
+    title
+    comment
+    url
+    targetAt
+    carryOver
+    createdAt
+    updatedAt
+    updatedUser
+    owner
+  }
+}
+query ListTodos(
+  $filter: ModelTodoFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listTodos(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      status
+      title
+      comment
+      url
+      targetAt
+      carryOver
+      createdAt
+      updatedAt
+      updatedUser
+      owner
+    }
+    nextToken
+  }
+}
+query ListSortedByTargetAt(
+  $status: Int
+  $targetAt: ModelStringKeyConditionInput
+  $sortDirection: ModelSortDirection
+  $filter: ModelTodoFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listSortedByTargetAt(
+    status: $status
+    targetAt: $targetAt
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      status
+      title
+      comment
+      url
+      targetAt
+      carryOver
+      createdAt
+      updatedAt
+      updatedUser
+      owner
+    }
+    nextToken
+  }
+}
