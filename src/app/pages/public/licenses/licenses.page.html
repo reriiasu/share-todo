@@ -1,0 +1,34 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Licenses</ion-title>
+    <ion-buttons slot="primary">
+      <ion-button (click)="onClickClose()">
+        <ion-icon slot="icon-only" name="close-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list *ngFor="let license of licenses">
+    <ion-item-divider>
+      <ion-label color="primary">{{license.name}}</ion-label>
+    </ion-item-divider>
+    <ion-item>
+      <ion-label>Licenses</ion-label>
+      <ion-note slot="end">{{license.licenses}}</ion-note>
+    </ion-item>
+    <ion-item *ngIf="license.repository !== ''">
+      <ion-label>Repository</ion-label>
+      <ion-note slot="end" (click)="onClickUrl(license.repository)">
+        {{license.repository}}
+      </ion-note>
+    </ion-item>
+    <ion-item *ngIf="license.url !== ''">
+      <ion-label>Url</ion-label>
+      <ion-note slot="end" (click)="onClickUrl(license.url)">
+        {{license.url}}
+      </ion-note>
+    </ion-item>
+  </ion-list>
+</ion-content>

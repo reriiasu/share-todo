@@ -1,0 +1,30 @@
+{
+  "label": {
+    "language": "Language",
+    "licenses": "Licenses",
+    "signOut": "Sign Out",
+    "selectLanguage": "Select language",
+    "createNew": "Create new",
+    "title": "Title",
+    "comment": "Comment",
+    "free": "Free",
+    "bulletPoint": "Bullet point",
+    "expired": "Expired",
+    "repeat": "Repeat",
+    "open": "Open",
+    "delete": "Delete",
+    "edit": "Edit",
+    "editTodo": "Edit Todo",
+    "createNewTodo": "Create new Todo",
+    "confirmationTodo": "Confirmation Todo",
+    "inputError": "Input Error",
+    "beforeTimeLimit": "Before time limit",
+    "overdue": "Overdue",
+    "deleted": "Deleted"
+  },
+  "error": {
+    "titleRequired": "No title has been entered.",
+    "expiredRequired": "No expired has been entered.",
+    "invalidUrl": "invalid url."
+  }
+}

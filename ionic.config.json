@@ -1,0 +1,7 @@
+{
+  "name": "ShareTodo",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

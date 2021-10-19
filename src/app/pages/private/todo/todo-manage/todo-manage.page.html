@@ -1,0 +1,280 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title translate>{{bindData.headerTitle}}</ion-title>
+    <ion-button class="close" slot="end" fill="clear" (click)="onClickClose()">
+      <ion-icon slot="icon-only" name="close-outline"></ion-icon>
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ng-container *ngIf="bindData.isViewMode">
+    <ng-container
+      *ngTemplateOutlet="todoView; context:{$implicit:bindData.todo}"
+    ></ng-container>
+  </ng-container>
+  <ng-container *ngIf="!bindData.isViewMode">
+    <ng-container
+      *ngTemplateOutlet="todoEdit; context:{$implicit:bindData.todo}"
+    ></ng-container>
+  </ng-container>
+</ion-content>
+
+<ng-template #todoView let-todo>
+  <ion-list lines="full" class="ion-no-margin ion-no-padding">
+    <ion-item-divider translate>{{"label.title"}}</ion-item-divider>
+    <ion-item>
+      <ion-input
+        #title
+        readonly
+        maxlength="20"
+        type="text"
+        [(ngModel)]="todo.title"
+      ></ion-input>
+    </ion-item>
+    <ion-item-divider translate>
+      {{"label.comment"}}
+      <ion-segment
+        scrollable
+        slot="end"
+        [(ngModel)]="bindData.comment.commentType"
+        disabled
+      >
+        <ion-segment-button value="free">
+          <ion-label class="ion-no-margin ion-no-padding" translate>
+            {{"label.free"}}
+          </ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="bulletPoint">
+          <ion-label class="ion-no-margin ion-no-padding" translate>
+            {{"label.bulletPoint"}}
+          </ion-label>
+        </ion-segment-button>
+      </ion-segment>
+    </ion-item-divider>
+
+    <ng-container *ngIf="bindData.comment.commentType==='free'">
+      <ion-item>
+        <ion-textarea
+          rows="7"
+          [(ngModel)]="bindData.comment.freeComment"
+        ></ion-textarea>
+      </ion-item>
+    </ng-container>
+    <ng-container *ngIf="bindData.comment.commentType==='bulletPoint'">
+      <ng-container
+        *ngFor="let content of bindData.comment.contentList; let i = index trackBy: myTrackBy"
+      >
+        <ion-item class="bulletPoint" lines="none">
+          <ion-checkbox
+            class="ion-no-margin ion-no-padding"
+            [(ngModel)]="content.complete"
+          ></ion-checkbox>
+          <ion-input
+            class="ion-no-margin ion-no-padding"
+            maxlength="20"
+            type="text"
+            disabled
+            [(ngModel)]="content.content"
+          ></ion-input>
+        </ion-item>
+      </ng-container>
+    </ng-container>
+    <ion-item-divider translate>
+      {{"label.expired"}}
+      <ng-container *ngIf="bindData.comment.commentType==='bulletPoint'">
+        <ion-label class="title-end" slot="end" translate>
+          {{"label.repeat"}}
+        </ion-label>
+      </ng-container>
+    </ion-item-divider>
+    <ion-item>
+      <ion-datetime
+        readonly
+        [min]="bindData.minYear"
+        [max]="bindData.maxYear"
+        display-format="YYYY/MM/DD HH:mm"
+        picker-format="YYYY/MM/DD"
+        [(ngModel)]="todo.targetAt"
+      ></ion-datetime>
+      <ng-container *ngIf="bindData.comment.commentType==='bulletPoint'">
+        <ion-checkbox
+          disabled
+          slot="end"
+          [(ngModel)]="todo.carryOver"
+        ></ion-checkbox>
+      </ng-container>
+    </ion-item>
+    <ion-item-divider>URL</ion-item-divider>
+    <ion-item>
+      <ion-label>{{todo.url}}</ion-label>
+      <ng-container *ngIf="todo.url">
+        <ion-button (click)="onClickOpenLink()" translate>
+          {{"label.open"}}
+        </ion-button>
+      </ng-container>
+    </ion-item>
+    <ion-item-divider translate>{{"label.delete"}}</ion-item-divider>
+    <ion-item>
+      <ion-toggle color="danger" [(ngModel)]="bindData.isDelete"></ion-toggle>
+    </ion-item>
+  </ion-list>
+  <ion-item class="action-button">
+    <!-- 均等配置になるようion-label -->
+    <ion-label></ion-label>
+    <ion-button
+      slet="end"
+      (click)="onClickOk()"
+      expand="block"
+      fill="clear"
+      shape="round"
+      size="default"
+    >
+      OK
+    </ion-button>
+    <ion-button
+      slot="start"
+      (click)="onClickEdit()"
+      expand="block"
+      fill="clear"
+      shape="round"
+      size="default"
+      translate
+    >
+      {{"label.edit"}}
+    </ion-button>
+  </ion-item>
+</ng-template>
+
+<ng-template #todoEdit let-todo>
+  <ion-list
+    [class.show-keyboard]="bindData.isShowKeybord"
+    lines="full"
+    class="ion-no-margin ion-no-padding"
+  >
+    <ion-item-divider translate>{{"label.title"}}</ion-item-divider>
+    <ion-item>
+      <ion-input
+        #title
+        required
+        maxlength="20"
+        wrap="soft"
+        type="text"
+        [(ngModel)]="todo.title"
+      ></ion-input>
+    </ion-item>
+    <ion-item-divider translate>
+      {{"label.comment"}}
+      <ion-segment
+        scrollable
+        slot="end"
+        [(ngModel)]="bindData.comment.commentType"
+      >
+        <ion-segment-button value="free">
+          <ion-label class="ion-no-margin ion-no-padding" translate>
+            {{"label.free"}}
+          </ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="bulletPoint">
+          <ion-label class="ion-no-margin ion-no-padding" translate>
+            {{"label.bulletPoint"}}
+          </ion-label>
+        </ion-segment-button>
+      </ion-segment>
+    </ion-item-divider>
+    <ng-container *ngIf="bindData.comment.commentType==='free'">
+      <ion-item>
+        <ion-textarea
+          rows="7"
+          [(ngModel)]="bindData.comment.freeComment"
+        ></ion-textarea>
+      </ion-item>
+    </ng-container>
+    <ng-container *ngIf="bindData.comment.commentType==='bulletPoint'">
+      <ng-container
+        *ngFor="let content of bindData.comment.contentList; let i = index trackBy: myTrackBy"
+      >
+        <ion-item class="bulletPoint" lines="none">
+          <ion-checkbox
+            class="ion-no-margin ion-no-padding"
+            [disabled]="bindData.mode==='create'"
+            [(ngModel)]="content.complete"
+          ></ion-checkbox>
+          <ion-input
+            class="ion-no-margin ion-no-padding"
+            maxlength="20"
+            type="text"
+            [(ngModel)]="content.content"
+          ></ion-input>
+          <ion-button
+            *ngIf="bindData.comment.contentList.length > 1"
+            slot="end"
+            fill="clear"
+            color="danger"
+            class="ion-no-margin ion-no-padding"
+            (click)="onClickRemoveComment(i)"
+          >
+            <ion-icon slot="icon-only" name="close-outline"></ion-icon>
+          </ion-button>
+        </ion-item>
+      </ng-container>
+      <ion-item *ngIf="bindData.comment.contentList.length <= 10">
+        <ion-button slot="end" fill="clear" (click)="onClickAddComment()">
+          <ion-icon slot="icon-only" name="add-circle-outline"></ion-icon>
+        </ion-button>
+      </ion-item>
+      <ion-label></ion-label>
+    </ng-container>
+    <ion-item-divider translate>
+      {{"label.expired"}}
+      <ng-container *ngIf="bindData.comment.commentType==='bulletPoint'">
+        <ion-label slot="end" translate>{{"label.repeat"}}</ion-label>
+      </ng-container>
+    </ion-item-divider>
+    <ion-item>
+      <ion-datetime
+        required
+        [min]="bindData.minYear"
+        [max]="bindData.maxYear"
+        display-format="YYYY/MM/DD"
+        picker-format="YYYY/MM/DD"
+        [(ngModel)]="todo.targetAt"
+      ></ion-datetime>
+      &nbsp;
+      <ion-datetime
+        required
+        display-format="HH:mm"
+        picker-format="HH:mm"
+        [(ngModel)]="todo.targetAt"
+      ></ion-datetime>
+      <ng-container *ngIf="bindData.comment.commentType==='bulletPoint'">
+        <ion-checkbox slot="end" [(ngModel)]="todo.carryOver"></ion-checkbox>
+      </ng-container>
+    </ion-item>
+    <ion-item-divider>URL</ion-item-divider>
+    <ion-item>
+      <ion-input type="url" [(ngModel)]="todo.url"></ion-input>
+    </ion-item>
+    <ng-container *ngIf="bindData.mode!=='create'">
+      <ion-item-divider translate>{{"label.delete"}}</ion-item-divider>
+      <ion-item>
+        <ion-toggle color="danger" [(ngModel)]="bindData.isDelete"></ion-toggle>
+      </ion-item>
+    </ng-container>
+  </ion-list>
+  <ion-item class="action-button">
+    <!-- 均等配置になるようion-label -->
+    <ion-label></ion-label>
+    <ion-button
+      slet="end"
+      class="ok"
+      (click)="onClickOk()"
+      expand="block"
+      fill="clear"
+      shape="round"
+      size="default"
+    >
+      OK
+    </ion-button>
+  </ion-item>
+</ng-template>
