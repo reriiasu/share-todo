@@ -1,0 +1,56 @@
+<ion-toolbar></ion-toolbar>
+
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <div id="container" class="ion-no-padding">
+    <ion-item class="action-button">
+      <ion-button slot="end" (click)="onClickCreateNew()" translate>
+        {{"label.createNew"}}
+      </ion-button>
+    </ion-item>
+    <ion-reorder-group id="reorder" class="ion-no-padding" disabled="true">
+      <ng-container
+        *ngFor="let todoGroup of bindData.todoGroupList; let i = index trackBy: myTrackBy"
+      >
+        <ng-container
+          *ngTemplateOutlet="todoItem; context:{todoGroup:todoGroup, index:i}"
+        ></ng-container>
+      </ng-container>
+    </ion-reorder-group>
+  </div>
+</ion-content>
+
+<ng-template #todoItem let-todoGroup="todoGroup" let-index="index">
+  <ion-item class="ion-no-padding">
+    <mat-accordion class="ion-no-padding">
+      <mat-expansion-panel [expanded]="index === 0">
+        <mat-expansion-panel-header>
+          <mat-panel-title translate>{{todoGroup.groupName}}</mat-panel-title>
+        </mat-expansion-panel-header>
+        <ion-reorder-group
+          [ngClass]="'group' + todoGroup.groupId"
+          disabled="false"
+        >
+          <ng-container
+            *ngFor="let todo of todoGroup.todoList; let i = index trackBy: myTrackBy"
+          >
+            <ion-item>
+              <ion-label
+                [ngClass]="{'first': i === 0}"
+                (click)="displayTodo(todo)"
+              >
+                {{todo.title}}
+                <h4 class="expired-date-time">
+                  {{todo.targetAt | date: 'yyyy/MM/dd HH:mm'}}
+                </h4>
+              </ion-label>
+            </ion-item>
+          </ng-container>
+        </ion-reorder-group>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </ion-item>
+</ng-template>

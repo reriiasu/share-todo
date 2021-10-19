@@ -1,0 +1,30 @@
+{
+  "label": {
+    "language": "言語",
+    "licenses": "Licenses",
+    "signOut": "サインアウト",
+    "selectLanguage": "言語選択",
+    "createNew": "新規作成",
+    "title": "タイトル",
+    "comment": "コメント",
+    "free": "フリー",
+    "bulletPoint": "箇条書き",
+    "expired": "期限",
+    "repeat": "繰り返し",
+    "open": "開く",
+    "delete": "削除",
+    "edit": "編集",
+    "editTodo": "Todo編集",
+    "createNewTodo": "Todo新規作成",
+    "confirmationTodo": "Todo確認",
+    "inputError": "入力エラー",
+    "beforeTimeLimit": "期限前",
+    "overdue": "期限超過",
+    "deleted": "削除済み"
+  },
+  "error": {
+    "titleRequired": "タイトルが入力されていません",
+    "expiredRequired": "期限が入力されていません",
+    "invalidUrl": "無効なURLです"
+  }
+}
