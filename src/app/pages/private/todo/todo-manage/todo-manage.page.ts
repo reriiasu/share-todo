@@ -224,14 +224,19 @@ export class TodoManagePage implements OnInit, OnDestroy {
   private setMode() {
     switch (this.bindData.mode) {
       case todoPageConst.mode.view:
-        this.bindData.headerTitle = 'label.editTodo';
+        this.bindData.headerTitle = this.translateService.instant(
+          'label.confirmationTodo'
+        );
         this.bindData.isViewMode = true;
         break;
       case todoPageConst.mode.create:
-        this.bindData.headerTitle = 'label.createNewTodo';
+        this.bindData.headerTitle = this.translateService.instant(
+          'label.createNewTodo'
+        );
         break;
       case todoPageConst.mode.edit:
-        this.bindData.headerTitle = 'label.confirmationTodo';
+        this.bindData.headerTitle =
+          this.translateService.instant('label.editTodo');
         break;
       default:
         const mode: never = this.bindData.mode;
