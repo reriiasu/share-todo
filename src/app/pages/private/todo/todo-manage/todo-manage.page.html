@@ -1,6 +1,6 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title translate>{{bindData.headerTitle}}</ion-title>
+    <ion-title>{{bindData.headerTitle}}</ion-title>
     <ion-button class="close" slot="end" fill="clear" (click)="onClickClose()">
       <ion-icon slot="icon-only" name="close-outline"></ion-icon>
     </ion-button>
@@ -219,7 +219,12 @@
         </ion-item>
       </ng-container>
       <ion-item *ngIf="bindData.comment.contentList.length <= 10">
-        <ion-button slot="end" fill="clear" (click)="onClickAddComment()">
+        <ion-button
+          class="ion-no-margin ion-no-padding"
+          slot="end"
+          fill="clear"
+          (click)="onClickAddComment()"
+        >
           <ion-icon slot="icon-only" name="add-circle-outline"></ion-icon>
         </ion-button>
       </ion-item>
@@ -228,7 +233,9 @@
     <ion-item-divider translate>
       {{"label.expired"}}
       <ng-container *ngIf="bindData.comment.commentType==='bulletPoint'">
-        <ion-label slot="end" translate>{{"label.repeat"}}</ion-label>
+        <ion-label slot="end" class="title-end" translate>
+          {{"label.repeat"}}
+        </ion-label>
       </ng-container>
     </ion-item-divider>
     <ion-item>
